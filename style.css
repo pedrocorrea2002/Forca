@@ -1,0 +1,58 @@
+body{
+    padding: 0px;
+    margin: 0px;
+}
+
+#tentativas{
+    height: 20vh;
+    margin-left: 10px;
+
+    font-size: 30px;
+}
+
+#palavra{
+    width: 100%;
+    height: 40vh;
+    background-color: red;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.espaco{
+    height: 50px;
+    width: 50px;
+    border-bottom: 3px solid black;
+
+    margin:20px;
+    font-size: 40px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+#caixa_de_letras{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.letra{
+    height: 14vh;
+    width: 14vh;
+
+    border: 2px solid black;
+    border-radius: 5vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+.letra:hover{
+    background-color: gray;
+    cursor: pointer;
+}
