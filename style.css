@@ -12,7 +12,7 @@ body{
 
 #palavra{
     width: 100%;
-    height: 40vh;
+    height: 30vh;
     background-color: red;
 
     display: flex;
@@ -31,6 +31,21 @@ body{
     display: flex;
     justify-content: center;
     align-items: flex-end;
+}
+
+#letras_tentadas{
+    height: 5vh;
+
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+#mensagem{
+    height: 5vh;
+
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: yellow;
 }
 
 #caixa_de_letras{
@@ -55,4 +70,21 @@ body{
 .letra:hover{
     background-color: gray;
     cursor: pointer;
+}
+
+.letra_disabled{
+    height: 14vh;
+    width: 14vh;
+
+    border: 2px solid black;
+    border-radius: 5vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    font-size: 30px;
+
+    background-color: rgb(51, 51, 51);
 }
