@@ -1,93 +1,62 @@
-//* DECLARANDO VARIÁVEIS
-var listaPalavras = utils.shuffle(utils.listaCompleta["animais brasileiros"])
-var  secreta = listaPalavras[0]
-var digitadas = []
-var secretaArray = []
-var chances = 3
-const letras = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+const letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+var teclaApertada = ""
 
-//* ITENS DO FRONT-END
-const front_valorChances = document.getElementById('tentativas')
-const front_palavraSecreta = document.getElementById('palavra')
-const front_letrasTentadas = document.getElementById('letras_tentadas')
-const front_caixaLetras = document.getElementById('caixa_de_letras')
-const front_mensagem = document.getElementById('mensagem')
+function startGame() {
+    document.getElementById('playButton').innerText = "Resetar"
 
-//* PREENCHENDO CHANCES
-front_valorChances.innerText = `Tentativas restantes: ${chances}`
+    //* DECLARANDO VARIÁVEIS
+    var secretaArray = []
+    var ultimaTeclaApertada = ""
+    var chances = 3
 
-//* COLOCANDO ESPAÇOS EM BRANCO NA TELA
-for(y in secreta){  
-    secretaArray.push(secreta[y])
-    front_palavraSecreta.innerHTML += "<p class='espaco'></p>"
-} 
+    //* ITENS DO FRONT-END
+    const front_valorChances = document.getElementById('tentativas')
+    const front_palavraSecreta = document.getElementById('palavra')
+    const front_letrasTentadas = document.getElementById('letras_tentadas')
+    const front_caixaLetras = document.getElementById('caixa_de_letras')
+    const front_mensagem = document.getElementById('mensagem')
 
-//* ADICIONADNO BOTÕES DE LETRAS
-letras.forEach(l => {
-    front_caixaLetras.innerHTML += `<button id="botao_${l}" class="letra" onClick='input("${l}")')'>${l.toUpperCase()}</button>`
-})
-
-
-function input(letra){
-    document.getElementById(`botao_${letra}`).disabled = true
-    document.getElementById(`botao_${letra}`).className = "letra_disabled"
-
-    digitadas.push(letra)
-
-    if(chances == 0){
-        front_mensagem.innerText = 'Você não pode mais jogar, deu mole'
-        return
-    }
-
-    if(letra.size > 1){
-        front_mensagem.innerText = 'Você deve informar somente uma letra'
-        return
-    }
-
-    if(secretaArray.includes(letra)){
-        front_mensagem.innerText = 'Você acertou uma letra'
-        front_mensagem.style.color = "green"
-
-        front_letrasTentadas.innerText = digitadas.map(x => x.toUpperCase()).join(" - ")
-    }else{
-        front_mensagem.innerText = 'Você errou uma letra'
-        front_mensagem.style.color = "red"
-
-        front_letrasTentadas.innerText = digitadas.map(x => x.toUpperCase()).join(" - ")
-        chances -= 1
-    }
-
-    let descoberto = ''
-
+    //* ZERANDO CAMPOS DO FRONT
     front_palavraSecreta.innerHTML = ""
-    for(x in secreta){
-        if(digitadas.includes(secreta[x])){
-            front_palavraSecreta.innerHTML += `<p class='espaco'>${secreta[x]}</p>`
-            descoberto += secreta[x]
-        }else{
-            front_palavraSecreta.innerHTML += "<p class='espaco'></p>"
-            descoberto += "*"
-        }
+    front_letrasTentadas.innerHTML = ""
+    front_caixaLetras.innerHTML = ""
+    front_mensagem.innerHTML = ""
+
+    //* ADICIONADNO BOTÕES DE LETRAS
+    letras.forEach(l => {
+        front_caixaLetras.innerHTML += `<button id="botao_${l}" class="letra" onClick='teclaApertada = "${l}"'>${l.toUpperCase()}</button>`
+    })
+
+    //* PEGANDO CATEGORIA ESCOLHIDA
+    const categoria_palavra = document.getElementById('category').value
+
+    //* PREENCHENDO CHANCES
+    front_valorChances.innerText = `Tentativas restantes: ${chances}`
+
+    //* PEGANDO UMA PALAVRA ALEATÓRIO DA CATEGORIA ESCOLHIDA
+    const secreta = utils.shuffle(utils.listaCompleta[categoria_palavra])[0]
+
+    //* COLOCANDO ESPAÇOS EM BRANCO NA TELA
+    for (y in secreta) {
+        secretaArray.push(secreta[y])
+        front_palavraSecreta.innerHTML += "<p class='espaco'></p>"
     }
 
-    console.log(`${descoberto} -- ${secreta}`)
-    if(descoberto == secreta){
-        front_mensagem.innerText = `Você acertou, meus parabéns, a palavra era "${secreta}"`
-        front_mensagem.style.color = "green"
+    function loop() {
+        setTimeout(() => {
+            console.log(`${teclaApertada} -- ${ultimaTeclaApertada}`)
 
-        console.log(document.getElementsByClassName("letra"))
-        console.log(typeof(document.getElementsByClassName("letra")))
+            if (ultimaTeclaApertada != teclaApertada) {
+                document.getElementById(`botao_${teclaApertada}`).disabled = true
+                document.getElementById(`botao_${teclaApertada}`).className = "letra_disabled"
+                ultimaTeclaApertada = teclaApertada
 
-        const todas_letras = Array.prototype.slice.call(document.getElementsByClassName("letra"))
-        todas_letras.map(x => x.disabled = true)
-        todas_letras.map(x => x.className = "letra_disabled")
-        return
+                utils.input(teclaApertada,secretaArray,secreta)
+            }
+
+            loop()
+        }, 500)
     }
 
-    if(chances > 0){
-        front_valorChances.innerText = `Tentativas restantes: ${chances}`
-    }else{
-        front_mensagem.innerText = 'Suas chances acabaram'
-        front_mensagem.style.color = "red"
-    }
-};
+    loop()
+}

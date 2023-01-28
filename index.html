@@ -10,7 +10,14 @@
     <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
 </head>
 <body>
-    <p id="tentativas">Tentativas restantes:</p>
+    <div id="header">
+        <p id="tentativas">Tentativas restantes:</p>
+        <button id="playButton" onclick="startGame()">Jogar</button>
+        <select id="category" onchange="startGame()">
+            <option value="alimentos">Alimentos</option>
+            <option value="animais brasileiros">Animais brasileiros</option>
+        </select>
+    </div>
     <div id="palavra"></div>
     <div id="letras_tentadas"></div>
     <div id="mensagem"></div>
