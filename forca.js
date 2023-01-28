@@ -44,6 +44,7 @@ function startGame() {
         front_palavraSecreta.innerHTML += "<p class='espaco'></p>"
     }
 
+    //* USANDO PARA IDENTIFICAR E ENCERRAR O ROUND QUE NÃO É O ATUAL
     round++
     const round_id = round
 
