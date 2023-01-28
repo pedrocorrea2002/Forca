@@ -7,7 +7,8 @@ function startGame() {
     //* DECLARANDO VARIÁVEIS
     var secretaArray = []
     var ultimaTeclaApertada = ""
-    var chances = 3
+    var chances = 5
+    teclaApertada = ""
 
     //* ITENS DO FRONT-END
     const front_valorChances = document.getElementById('tentativas')

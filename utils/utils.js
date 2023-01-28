@@ -17,6 +17,8 @@ const utils = {};
   }
 
   function input(letra,secretaArray,secreta) {
+    console.log(secreta)
+
     document.getElementById(`botao_${letra}`).disabled = true
     document.getElementById(`botao_${letra}`).className = "letra_disabled"
 
@@ -101,7 +103,8 @@ const utils = {};
 
   const listaCompleta = {
     "alimentos": ['arroz', 'alface', 'couve', 'cenoura', 'batata', 'atum', 'alho', 'cebola'],
-    "animais brasileiros": ['jacaranbeva', 'cateto', 'tatu', 'queixada', 'jacare', 'boto', 'tamandua', 'arara']
+    "animais brasileiros": ['jacaranbeva', 'cateto', 'tatu', 'queixada', 'jacare', 'boto', 'tamandua', 'arara'],
+    "pokemon": ["magneton","nidoran"," haunter","bulbasaur","jynx","dratini","flaaffy","elekid","slowking","unown","wobbuffet","girafarig","kirlia","medichan","aron","glalie","registeel","banette","shinx","prinplup","turtwig","blissey","canivine","heatran"]
   }
 
   utils.shuffle = shuffle;
