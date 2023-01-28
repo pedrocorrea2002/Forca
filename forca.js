@@ -1,5 +1,6 @@
 const letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 var teclaApertada = ""
+var round = 0
 
 function startGame() {
     document.getElementById('playButton').innerText = "Resetar"
@@ -43,21 +44,29 @@ function startGame() {
         front_palavraSecreta.innerHTML += "<p class='espaco'></p>"
     }
 
-    function loop() {
+    round++
+    const round_id = round
+
+    //* ENTRANDO EM LOOP PARA "ESCUTAR" SE O JOGADOR APERTAR EM ALGUM BOTÃO
+    function loop(round_id) {
         setTimeout(() => {
             console.log(`${teclaApertada} -- ${ultimaTeclaApertada}`)
 
             if (ultimaTeclaApertada != teclaApertada) {
+                ultimaTeclaApertada = teclaApertada
                 document.getElementById(`botao_${teclaApertada}`).disabled = true
                 document.getElementById(`botao_${teclaApertada}`).className = "letra_disabled"
-                ultimaTeclaApertada = teclaApertada
 
                 utils.input(teclaApertada,secretaArray,secreta)
             }
 
-            loop()
+            if(round_id == round){   
+                loop(round_id)
+            }else{
+                console.log(round_id," finalizado")
+            }
         }, 500)
     }
 
-    loop()
+    loop(round_id)
 }
